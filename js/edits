@@ -1,0 +1,12 @@
+index.html
+added Poppins font to index html
+styles.css
+changed .header font to Poppins
+change .header color and text shadow properties
+app.js
+changed background color for .main-contatiner of page to 'white' with opacity 0.85
+added 'keydown' functionality, 'keypress' has been deprecated
+Phrase.js
+added visual color sweep animation over phrase when user guesses a letter correctly
+added "beating heart" animation when user loses a life 
+

@@ -86,7 +86,9 @@ button {
 /* Title */
 
 .header {
-  color: #3a3f58;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: -20px -15px 10px #99ccff;
+  color: #ff6699;
 }
 
 
@@ -111,6 +113,7 @@ button {
 
 .show {
   color: #fff;
+  font-weight: bold;
   background-color: #4ac0d5;
   font-size: 20px;
   height: 65px;

@@ -12,26 +12,71 @@ class Game {
   }
 
   startGame() {
-    document.querySelector("#overlay").style.display = 'none';
+    this.resetGame();
+    const startScreen = document.querySelector("#overlay");
+    startScreen.style.display = 'none';
+    startScreen.className = 'start';
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
   }
 
+  resetGame() {
+    const keyboard = document.querySelectorAll('.key');
+    const lives = document.querySelectorAll('.tries');
+    const phrase = document.querySelector('#phrase ul');
+
+    this.missed = 0;
+    for (let life of lives) {
+      life.firstChild.src='images/liveHeart.png';
+    }
+
+    for (let key of keyboard) {
+      key.className = 'key';
+      key.disabled = false;
+    }
+
+    phrase.innerHTML = '';
+  }
+
   getRandomPhrase() {
-    return this.phrase[Math.ceil(Math.random() * 4)];
+    return this.phrase[Math.ceil((Math.random() * this.phrase.length) - 1)];
   }
 
   handleInteraction(e) {
-    if (e.target.tagName === 'BUTTON') {
-      e.target.disabled = true;
-      const userChoice = e.target.textContent;
-      
+    const keyboard = document.querySelectorAll('.key');
+    var qwertyKey = null;
+    var userChoice = null;
+    e.target.tagName === 'BUTTON' ? userChoice = e.target.textContent : userChoice = e.key;
+
+    
+    for (let key of keyboard) {
+      if (key.innerText === userChoice) {
+	qwertyKey = key;
+      } 
+    }
+    function keyFlip (judgement) {
+      qwertyKey.classList.add(judgement);
+      qwertyKey.disabled = true;
+    }
+    /*if (e.target.tagName === 'BUTTON') {
+      userChoice = e.target.textContent;
+    }else {
+      userChoice = e.key;
+    }*/
+
+    //If userChoice is a valid letter and the associated keydown press hasn't been triggered yet
+    //Testing for 'className' = 'key' makes sure the associated onscreen keyboard button hasn't been guessed...
+    //...if this wasn't here, the user could PRESS an identical key multiple times
+    if (/[a-z]/.test(userChoice) && qwertyKey.className === 'key') {
       if (this.activePhrase.checkLetter(userChoice)) {
-	e.target.classList.add('chosen');
+	//e.target.classList.add('chosen');
 	this.activePhrase.showMatchedLetter(userChoice);
+	this.activePhrase.tile_generatePattern();
 	this.checkForWin();
+	keyFlip('chosen');
       }else {
-	e.target.classList.add('wrong');
+	//e.target.classList.add('wrong');
+	keyFlip('wrong');
 	this.removeLife();
       }
     }
@@ -40,7 +85,11 @@ class Game {
   removeLife() {
     const lives = document.querySelectorAll('.tries');
 
-    if (this.missed < 4) {
+    if (this.missed <= 4) {
+
+      //JQuery animation
+      $('img').eq(this.missed).animate({height:'110%', width:'110%'}, 200).animate({height:'35', width:'30'}, 500);
+
       lives[this.missed].firstChild.src='images/lostHeart.png';
       this.missed++;
     }else {
@@ -65,17 +114,19 @@ class Game {
 
   gameOver() {
     const startScreen = document.querySelector("#overlay");
-    const startScreenMsg = document.querySelector("#game-over-message");
+    const gameOverMsg = document.querySelector("#game-over-message");
 
     startScreen.style.display = '';
-    startScreen.classList.remove('start');
     
-    if (this.missed === 4) {
-      startScreen.classList.add('lose');
-      startScreenMsg.textContent = "Sorry, you lose. Play again!";
+    if (this.missed === 5) {
+      startScreen.className = 'lose';
+      gameOverMsg.textContent = "Sorry, you lose. Play again!";
     }else {
-      startScreen.classList.add('win');
-      startScreenMsg.textContent = "Winner, GAGNON!";
+      startScreen.className = 'win';
+      //gameOverMsg.innerHTML =  '"' + this.activePhrase.phrase + '"';
+      gameOverMsg.innerHTML = `You Win!<br>
+			      <p>The phrase was: <i>"${this.activePhrase.phrase}"</i></p>
+			      `;
     }
   }
 }
