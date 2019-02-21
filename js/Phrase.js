@@ -4,7 +4,7 @@ class Phrase {
   }
 
   /*
-   * Adds the phrase(hidden) into the DOM.
+   * Adds the phrase into the WebPage; Uses JQuery.
    */
   addPhraseToDisplay() {
     for (let alpha of this.phrase) {
@@ -18,6 +18,7 @@ class Phrase {
 
   /*
    * Checks to see if user selection matches any letter in phrase.
+   * @param   {String}	  userChoice - the a-z character the user chose
    * @return  {Boolean}
    */
   checkLetter(userChoice) {
@@ -29,7 +30,6 @@ class Phrase {
 
     for (let letter of li_hiddenPhrase) {
       if (regexp_userChoice.test(letter.className)) {
-	//this.showMatchedLetter(letter);
 	return true;
       }
     }
@@ -38,6 +38,7 @@ class Phrase {
   
   /*
    * Reveals all letters matching the user guess.
+   * @param   {String}	letter - the a-z character the user chose
    */
   showMatchedLetter(letter) {
     const li_hiddenPhrase = document.querySelectorAll('#phrase li');
@@ -87,11 +88,11 @@ class Phrase {
   }
 
   tile_modifyOpacity(color, deviation) {
-    const opacityCeiling = 0.60; //Creates a cap for opacity
+    const opacityCeiling = 0.70; //Creates a cap for opacity
     const opacityFloor = 0.20; //Creates a baseline for opacity
     const opacityWindow = opacityCeiling - opacityFloor;
-    const opacityRate = (opacityWindow / document.querySelectorAll('.letter').length);
-    const newOpacity = (opacityRate * deviation) + opacityFloor; 
+    const opacityCommonDiff = (opacityWindow / document.querySelectorAll('.letter').length);
+    const newOpacity = (opacityCommonDiff * deviation) + opacityFloor; 
     const transformedColor = `rgb(${color}, ${newOpacity.toString()})`; 
 
     return transformedColor;
@@ -112,7 +113,8 @@ class Phrase {
       '0,153,255',
       '255,26,26',
       '255,102,0',
-      '0,0,102'
+      '0,0,102',
+      '255,0,68'
     ];
 
     function sweeper() {

@@ -28,6 +28,9 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background-image: url(http://www.clker.com/cliparts/D/s/P/Q/s/6/pink-palm-trees-hi.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
 li, ol, ul {
@@ -72,6 +75,7 @@ button {
   height: 100%;
   max-height: 900px;
   text-align: center;
+  opacity: 0.80;
 }
 
 .section {
@@ -99,10 +103,10 @@ button {
   height: 65px;
   width: 65px;
   padding: 20px 1px 0 1px;
-  margin-right: 2px;
+  /*margin-right: 2px;*/
   color: transparent;
   background: var(--color-neutral-light);
-  border-radius: 5px;
+  /*border-radius: 5px;*/
 }
 
 .space {
@@ -119,8 +123,8 @@ button {
   height: 65px;
   width: 65px;
   padding: 20px 1px 0 1px;
-  margin-right: 2px;
-  border-radius: 5px;
+  /*margin-right: 2px;
+  border-radius: 5px;*/
   -webkit-animation-duration: .5s;
   animation-duration: .5s;
 }
@@ -131,6 +135,11 @@ button {
 .keyrow {
   display: flex;
   justify-content: center;
+}
+
+.key {
+  background: #FEF13F;
+  border: solid black 1px;
 }
 
 .chosen {

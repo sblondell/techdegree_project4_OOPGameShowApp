@@ -3,8 +3,12 @@ added Poppins font to index html
 styles.css
 changed .header font to Poppins
 change .header color and text shadow properties
+added a background image
+changed background color for .main-contatiner of page to 'white' with opacity 0.90
+changed keyboard color
+added border to keyboard keys
+removed border-radius and margin from phrase
 app.js
-changed background color for .main-contatiner of page to 'white' with opacity 0.85
 added 'keydown' functionality, 'keypress' has been deprecated
 Phrase.js
 added visual color sweep animation over phrase when user guesses a letter correctly
