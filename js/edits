@@ -4,7 +4,8 @@ styles.css
 changed .header font to Poppins
 change .header color and text shadow properties
 added a background image
-changed background color for .main-contatiner of page to 'white' with opacity 0.90
+changed background color for .main-container of page to 'rgb(70,130,240,0.20)' with alpha '0.20'.
+added 'opacity: 0.9' for.main container
 changed keyboard color
 added border to keyboard keys
 removed border-radius and margin from phrase

@@ -40,7 +40,6 @@ class Game {
     for (let key of keyboard) {
       key.className = 'key';
       key.disabled = false;
-      console.log(key);
     }
 
     phrase.innerHTML = '';
