@@ -1,0 +1,50 @@
+index.html
+added Poppins font to index html
+styles.css
+changed .header font to Poppins
+change .header color and text shadow properties
+added a background image
+changed background color for .main-container of page to 'rgb(70,130,240,0.20)' with alpha '0.20'.
+added 'opacity: 0.9' for.main container
+changed keyboard color
+added border to keyboard keys
+removed border-radius and margin from phrase
+app.js
+added 'keydown' functionality, 'keypress' has been deprecated
+Phrase.js
+added visual color sweep animation over phrase when user guesses a letter correctly
+added "beating heart" animation when user loses a life 
+
+
+
+
+  /*
+   * Takes an initial 
+   */
+  tile_colorGenerator(initialColor, rate = 1, deviation = 0) {
+    let rgbArray_converted = [0,0,0];
+    
+    let rgbArray_num = initialColor.split(','); //Break 'intialColor' into [R,G,B] value array(string)
+
+    //Convert string array into number array
+    for (index in rgbArray_num) { 
+      rgbArray_num[index] = parseInt(rgbArray_num[index], 10);
+    }
+
+    //Apply the rate of change and deviation from initial color to the RGB values
+    for (let i = 0; i < rgbArray_num.length; i++) {
+      rgbArray_num[i] = rgbArray_num[i] * (Math.pow(rate, deviation));
+    }
+
+    //Reconstructs a '000,000,000' based string for use in 'rgb(000,000,000)' html attributes
+    rgbArray_converted = rgbArray_num.reduce(
+      (finalRGB, rgbColor, index) => {
+        finalRGB += rgbColor.toString();
+        if (index != (rgbArray_num.length - 1)) { //If rgbColor being entered is not the last value in the array, add a ',' seperator 
+          finalRGB += ','; 
+        } 
+        return finalRGB; },
+    '');
+    
+    return rgbArray_converted;
+  }

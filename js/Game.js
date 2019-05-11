@@ -78,23 +78,23 @@ class Game {
     }else {
       //Finds the keyboard key associated with the user's choice
       for (let key of keyboard) {
-	if (key.innerText === userChoice) {
-	  qwertyKey = key;
-	} 
+        if (key.innerText === userChoice) {
+          qwertyKey = key;
+        } 
       }
 
       //Testing for 'className' === 'key' makes sure the associated onscreen keyboard button hasn't been guessed...
       //...if this wasn't here, the user could PRESS an identical key multiple times
       if (qwertyKey.className === 'key') {
-	if (this.activePhrase.checkLetter(userChoice)) {
-	  this.activePhrase.showMatchedLetter(userChoice);
-	  this.activePhrase.tile_generatePattern();
-	  this.checkForWin();
-	  keyFlip('chosen');
-	}else {
-	  keyFlip('wrong');
-	  this.removeLife();
-	}
+        if (this.activePhrase.checkLetter(userChoice)) {
+          this.activePhrase.showMatchedLetter(userChoice);
+          this.activePhrase.tile_generatePattern();
+          this.checkForWin();
+          keyFlip('chosen');
+        }else {
+          keyFlip('wrong');
+          this.removeLife();
+        }
       }
     }
   }
@@ -128,8 +128,8 @@ class Game {
     //If any letter is still hidden (ie. class list has 'hide'), then player has not met win criteria
     for (let i = 0; i < dom_phrase.length; i++) {
       if (/^hide/.test(dom_phrase[i].classList.value)) {
-	win = false;
-	break;
+        win = false;
+        break;
       }
     }
 

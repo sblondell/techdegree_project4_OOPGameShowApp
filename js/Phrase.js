@@ -10,8 +10,8 @@ class Phrase {
     for (let alpha of this.phrase) {
       var li_letter;
       alpha === ' ' ? 
-	  li_letter = $('<li>').addClass('space').text(alpha)
-	: li_letter = $('<li>').addClass(`hide letter ${alpha.toLowerCase()}`).text(alpha);
+        li_letter = $('<li>').addClass('space').text(alpha) :
+        li_letter = $('<li>').addClass(`hide letter ${alpha.toLowerCase()}`).text(alpha);
       $('#phrase ul').append(li_letter);
     }
   }
@@ -30,7 +30,7 @@ class Phrase {
 
     for (let letter of li_hiddenPhrase) {
       if (regexp_userChoice.test(letter.className)) {
-	return true;
+	      return true;
       }
     }
     return false;
@@ -48,45 +48,28 @@ class Phrase {
 
     for (let letter of li_hiddenPhrase) {
       if (regexp_userChoice.test(letter.className)) {
-	letter.classList.remove('hide');
-	letter.classList.add('show');
+        letter.classList.remove('hide');
+        letter.classList.add('show');
       }
     }
   }
 
 
+  /* Modifies a phrase tile's color.
+   * @param {String}  color - an RGB + alpha value in the form 'rgb(0,0,0,0)'
+   * @param {Object}  tile - a DOM element node
+   */
   tile_changeColor(color, tile) {
     tile.style.backgroundColor = color;
   }
 
-  tile_colorGenerator(initialColor, rate = 1, deviation = 0) {
-    let rgbArray_converted = [0,0,0];
-    
-    let rgbArray_num = initialColor.split(','); //Break 'intialColor' into [R,G,B] value array(string)
-
-    //Convert string array into number array
-    for (index in rgbArray_num) { 
-      rgbArray_num[index] = parseInt(rgbArray_num[index], 10);
-    }
-
-    //Apply the rate of change and deviation from initial color to the RGB values
-    for (let i = 0; i < rgbArray_num.length; i++) {
-      rgbArray_num[i] = rgbArray_num[i] * (Math.pow(rate, deviation));
-    }
-
-    //Reconstructs a '000,000,000' based string for use in 'rgb(000,000,000)' html attributes
-    rgbArray_converted = rgbArray_num.reduce(
-      (finalRGB, rgbColor, index) => {
-	finalRGB += rgbColor.toString();
-	if (index != (rgbArray_num.length - 1)) { //If rgbColor being entered is not the last value in the array, add a ',' seperator 
-	  finalRGB += ','; 
-	} 
-	return finalRGB;
-      }, '');
-    
-    return rgbArray_converted;
-  }
-
+  /*
+   * Takes a color on the RGB scale and returns the same color, but with a
+   * modified alpha(opacity) value.
+   * @param   {String}  color - an RGB value in the form '000,000,000'
+   * @param   {Integer} deviation - an integer used to indicate the deviation from the initial alpha value
+   * @return  {String}  transformedColor - an RGB + alpha value in the form 'rgb(0,0,0,0')  
+   */
   tile_modifyOpacity(color, deviation) {
     const opacityCeiling = 0.70; //Creates a cap for opacity
     const opacityFloor = 0.20; //Creates a baseline for opacity
@@ -98,7 +81,11 @@ class Phrase {
     return transformedColor;
   }
 
-  tile_generatePattern(color, rate, iterations) {
+  /*
+   * Takes a random color from the color array and iterates through the on-screen phrase--modifying the
+   * opacity along the way.
+   */
+  tile_generatePattern() {
     //Two pointers needed for functions to solve scoping issues with setInterval()
     const pointer_tile_modifyOpacity = this.tile_modifyOpacity;
     const pointer_tile_changeColor = this.tile_changeColor;
@@ -124,18 +111,18 @@ class Phrase {
       let rgbColor = '';
 
       timerID = setInterval(() => {                      
-	rgbColor = pointer_tile_modifyOpacity(colors[randNum], i);
-	pointer_tile_changeColor(rgbColor , domLI_Phrase[i]);
-	++i;                                           
-	if (i === domLI_Phrase.length) { clearInterval(timerID); }
+        rgbColor = pointer_tile_modifyOpacity(colors[randNum], i);
+        pointer_tile_changeColor(rgbColor , domLI_Phrase[i]);
+        ++i;                                           
+        if (i === domLI_Phrase.length) { clearInterval(timerID); }
       }, sweep_speed);
     }
 
-    for (let send_off = 0; send_off <= 9/*domLI_Phrase.length*/; send_off++) {
+    for (let send_off = 0; send_off <= 9; send_off++) {
       //Each subsequent "color sweep" is timed at 'C + Cn', C = one complete sweep , n = current iteration 
       const sweep_nextSweepSpeed = sweep_fullSweep + (sweep_fullSweep * send_off);
       setTimeout(() => {
-	sweeper();
+        sweeper();
       }, sweep_nextSweepSpeed); 
     }
   }
