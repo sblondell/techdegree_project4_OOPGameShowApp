@@ -3,8 +3,7 @@
 /* February 8, 2019                              */
 /*                                               */
 /* Using HTML5, CSS, Javascript, and JQuery      */
-/* to validate the input from a user-submitted   */
-/* form.                                         */ 
+/* to create a "Guess the Phrase" game app.      */
 
 #Extra Credit
 
