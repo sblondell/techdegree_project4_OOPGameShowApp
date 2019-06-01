@@ -1,3 +1,4 @@
+```
 /* techdegree project 4 - OOP Game Show App       */
 /* February 8, 2019                               */
 /*                                               */
@@ -26,3 +27,4 @@
         line-62, 73, 88 - Added a "color sweep" animation to the on-screen phrase
     Game.js
         line-111 - Added a "heart beat" animation when the user loses a life
+```
